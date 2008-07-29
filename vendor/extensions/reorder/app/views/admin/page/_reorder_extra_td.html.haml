@@ -1,0 +1,4 @@
+- @stylesheets << 'admin/reorder' 
+- unless simple 
+  %td.copy-move
+    = page.children.empty? ? '' : link_to(image('reorder', :alt => 'reorder children'), page_reorder_children_url(:id => page))

@@ -1,0 +1,29 @@
+- @stylesheets << 'admin/reorder' 
+- @javascripts << 'dragdrop' 
+%h1#reorder_pages
+  Reorder Pages
+
+%p
+  Drag and drop pages to reorder. Click <strong>Finished</strong> when you are done.
+  
+#reorder-page.page
+  = page_icon(@page) + @page.title 
+
+%ul#children.pages
+  - for child in @children 
+    %li.page{ :id => "item_#{child.id}" }
+      = page_icon(child) 
+      = child.title
+
+
+%script{ :type => "text/javascript" } 
+  Sortable.create("children", { onUpdate:function(){ $('sort_order').value = Sortable.sequence('children').join(',') } });
+
+
+- form_tag do
+  %p.buttons
+    = submit_tag "Finished", :class => 'button' 
+    or 
+    = link_to 'Cancel', page_index_url
+  %div
+    = hidden_field_tag "sort_order" 
